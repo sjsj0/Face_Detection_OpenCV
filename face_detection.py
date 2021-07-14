@@ -20,3 +20,16 @@ def detect(gray, frame):
         for (sx, sy, sw, sh) in smiles:
             cv2.rectangle(roi_color, (sx, sy), (sx+sw, sy+sh), (0, 0, 255), 2)
     return frame
+
+# Doing some Face Recognition with the webcam
+video_capture = cv2.VideoCapture(0)
+print("Press q to quit!!")
+while True:
+    _, frame = video_capture.read()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    canvas = detect(gray, frame)
+    cv2.imshow('Video', canvas)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+video_capture.release()
+cv2.destroyAllWindows()
